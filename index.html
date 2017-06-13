@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta charset="utf-8">
+    <title>Products</title>
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="app.js"></script>
+</head>
+<body>
+    <div ng-controller="products">
+    <h2>Products</h2>
+        <form>
+            <label>Product Name:</label>
+            <input type="text" ng-model="newProduct.name">
+            <label>Product Price:</label>
+            <input type="number" ng-model="newProduct.price">
+            <input type="submit" ng-click="create(newProduct)" value="Add Product">
+        </form>
+        <table>
+            <thead>
+                <tr><td>Name</td><td>Price</td><td>Action</td></tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="product in products | orderBy: '-price'">
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.price | currency : symbol : fractionSize }}</td>
+                    <td><button ng-click="destroy(product)">Delete Product</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div ng-controller="orders">
+        <h2>Orders</h2>
+        <table>
+            <thead>
+                <tr><td>Name</td><td>Price</td><td>Action</td></tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="product in products | orderBy: '-price'">
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.price | currency : symbol : fractionSize }}</td>
+                    <td>{{ product.quantity }}</td>
+                    <td><button ng-click="buy(product)">Buy</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
